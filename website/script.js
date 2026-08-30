@@ -63,16 +63,168 @@ function dragElement(element) {
 var welcome_window = document.querySelector("#welcome_window")
 var welcomeScreenClose = document.querySelector("#welcomeclose")
 var welcomeScreenOpen = document.querySelector("#welcomeopen")
+var personal_window = document.querySelector("#personal_window")
+var personalScreenClose = document.querySelector("#personalclose")
+var personalScreenOpen = document.querySelector("#personalopen")
+
+var selectedIcon = undefined
+var zIndexCounter = 10
+
+function bringToFront(element)
+{
+  if (!element) return;
+  zIndexCounter += 1;
+  element.style.zIndex = zIndexCounter;
+}
 
 function closeWindow(element)
 {
+    if (!element) return;
     element.style.display = "none"
 }
 
 function openWindow(element)
 {
+    if (!element) return;
     element.style.display = "flex"
+    bringToFront(element)
 }
 
+function syncWindowWithIcon(icon, shouldOpen)
+{
+  var targetId = icon.dataset.window;
+  if (!targetId) return;
+
+  var windowElement = document.getElementById(targetId);
+  if (!windowElement) return;
+
+  if (shouldOpen) {
+    openWindow(windowElement);
+  } else {
+    closeWindow(windowElement);
+  }
+}
+
+function selectIcon(element) {
+  element.classList.add("selected");
+  selectedIcon = element
+}
+
+function deselectIcon(element) {
+  element.classList.remove("selected");
+  if (selectedIcon === element) {
+    selectedIcon = undefined
+  }
+}
+
+function toggleIconSelection(icon) {
+  if (!icon) return;
+
+  if (icon.classList.contains("selected")) {
+    deselectIcon(icon);
+    syncWindowWithIcon(icon, false);
+    return;
+  }
+
+  selectIcon(icon);
+  syncWindowWithIcon(icon, true);
+}
+
+closeWindow(personal_window);
+
+welcomeScreenClose.addEventListener("click", function() {
+  var icon = document.querySelector('.icon[data-window="welcome_window"]');
+  if (icon) {
+    deselectIcon(icon);
+  }
+  closeWindow(welcome_window);
+});
+
+welcomeScreenOpen.addEventListener("click", function() {
+  var icon = document.querySelector('.icon[data-window="welcome_window"]');
+  if (icon) {
+    selectIcon(icon);
+  }
+  openWindow(welcome_window);
+});
+
+personalScreenClose.addEventListener("click", function() {
+  deselectIcon(personalScreenOpen);
+  closeWindow(personal_window);
+});
+
+var desktopIcons = document.querySelectorAll(".icon");
+desktopIcons.forEach(function(icon) {
+  icon.addEventListener("click", function() {
+    if (icon.dataset.window) {
+      toggleIconSelection(icon);
+      return;
+    }
+
+    icon.classList.toggle("selected");
+  });
+});
+
+var allWindows = document.querySelectorAll(".window, #welcome_window");
+allWindows.forEach(function(windowElement) {
+  windowElement.addEventListener("mousedown", function() {
+    bringToFront(windowElement);
+  });
+});
+
+document.addEventListener("click", function(event) {
+  var closeButton = event.target.closest("[data-close-window]");
+  if (!closeButton) return;
+
+  var windowId = closeButton.dataset.closeWindow;
+  var targetWindow = document.getElementById(windowId);
+  if (!targetWindow) return;
+
+  var icon = document.querySelector('.icon[data-window="' + windowId + '"]');
+  if (icon) {
+    deselectIcon(icon);
+  }
+
+  closeWindow(targetWindow);
+});
+
 dragElement(document.getElementById("welcome_window"));
+dragElement(document.getElementById("personal_window"));
+dragElement(document.getElementById("music_window"));
 setInterval(updateTime, 1000)
+
+
+
+//code copied from 30s of code
+const slideGallery = document.querySelector('.slides');
+const slides = slideGallery.querySelectorAll('div');
+const thumbnailContainer = document.querySelector('.thumbnails');
+const slideCount = slides.length;
+const slideWidth = 540;
+
+const highlightThumbnail = () => {
+  thumbnailContainer
+    .querySelectorAll('div.highlighted')
+    .forEach(el => el.classList.remove('highlighted'));
+  const index = Math.floor(slideGallery.scrollLeft / slideWidth);
+  thumbnailContainer
+    .querySelector(`div[data-id="${index}"]`)
+    .classList.add('highlighted');
+};
+
+const scrollToElement = el => {
+  const index = parseInt(el.dataset.id, 10);
+  slideGallery.scrollTo(index * slideWidth, 0);
+};
+
+thumbnailContainer.innerHTML += [...slides]
+  .map((slide, i) => `<div data-id="${i}"></div>`)
+  .join('');
+
+thumbnailContainer.querySelectorAll('div').forEach(el => {
+  el.addEventListener('click', () => scrollToElement(el));
+});
+
+slideGallery.addEventListener('scroll', e => highlightThumbnail());
+
+highlightThumbnail();
