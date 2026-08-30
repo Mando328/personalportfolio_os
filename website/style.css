@@ -2,6 +2,93 @@
   box-sizing: border-box;
 }
 
+.window 
+{
+  border: solid;
+  border-color: white;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: #9a5252;
+  gap: 10px;
+  padding: 10px 16px 8px;
+  transform: translate(-50%, -50%);
+  font-family: "MS Sans Serif", "Segoe UI", Tahoma, sans-serif;
+  font-weight: bold;
+  align-self: flex-start;
+  line-height: 1.1;
+  font-size: 12px;
+}
+
+.windowheader
+{
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 16px;
+  top: 0%;
+  left: 0;
+  opacity: 100%;
+  padding: 1px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "MS Sans Serif", "Segoe UI", Tahoma, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: black;
+  line-height: 1;
+}
+
+.icon
+{
+  height:96px;
+  width: 96px;
+  padding: 8px;
+  border-radius: 8px;
+  display: block;
+  transition: transform 0.3s ease-out;
+}
+
+.icon:hover:not(.selected)
+{
+  transform: scale(1.08);
+}
+
+.selected
+{
+  height:96px;
+  width: 96px;
+  padding: 8px;
+  border-radius: 8px;
+  display: block;
+  border: solid;
+  border-color: white;
+  transform: none;
+}
+
+#desktop_apps
+{
+  padding-top: 64px;
+  height: fit-content;
+  width: 110px;
+  position: absolute;
+  top: 1%;
+  left: 0.4%;
+  overflow: hidden;
+}
+
+#music_window
+{
+  height: 100px;
+  width: 100px;
+  background-color: #9a5252;
+  top: 50%;
+  left: 50%;
+  display: none;
+}
+
 body {
   background-image: url(./files/wallpaper.png);
   font-family: "MS Sans Serif", "Segoe UI", Tahoma, sans-serif;
@@ -26,6 +113,17 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 background-color: #9a5252;
+}
+
+#personal_window
+{
+  height: fit-content;
+  width: min(520px, calc(100vw - 80px));
+  max-height: 70vh;
+  background-color: #9a5252;
+  top: 50%;
+  left: 50%;
+  padding-top: 24px;
 }
 
 #p1
@@ -123,4 +221,67 @@ background-color: #9a5252;
 #welcome_windowheader img {
   display: block;
   margin-left: auto;
+}
+
+.gallery-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.thumbnails {
+  position: absolute;
+  bottom: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.thumbnails div {
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  background: #aaa;
+  border-radius: 100%;
+}
+
+.thumbnails div.highlighted {
+  background-color: #777;
+}
+
+.slides {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  height: 220px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  align-items: center;
+  gap: 0;
+}
+
+.slides > div {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slides img {
+  width: 100%;
+  max-width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.slides::-webkit-scrollbar {
+  display: none;
 }

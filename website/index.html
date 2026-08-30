@@ -15,11 +15,17 @@
       <p style="margin-left: 16px; cursor: pointer "id="welcomeopen";>MANDO_OS</p>
       <p id='time'style="margin-right: 16px;">TIME LOADING...</p>
     </div>
+    <div id="desktop_apps">
 
+    <img class="icon" id="personalopen" data-window="personal_window" src="./files/satelitte.png">
+    <img class="icon" id="musicopen" data-window="music_window" src="./files/scandisk-0-removebg-preview.png">
+
+    </div>
+    
     <div id="welcome_window">
-      <div id="welcome_windowheader">
-        <p style="font-size: 10px; margin: 0;">Welcomewindow</p>
-        <img style="width: 14px; height: 14px; cursor: pointer;" id="welcomeclose" src="./files/x-small.svg">
+      <div id="welcome_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Welcome!</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="welcomeclose" data-close-window="welcome_window" src="./files/x-small.svg">
       </div> 
       <img id="img1" style="width: 64px; height: 128px; margin: 0%;" src="./files/bin.svg"; >
       <p id="p1">MANDO_OS initialized</p>
@@ -27,8 +33,33 @@
       <p id="p2">Welcome to MANDO_OS! It is my personal portoflio site. You can use it like your normal operating system. Click on the icons to get to know more about me and my project.</p>
     </div>
 
+    <div id="personal_window" class="window">
+      <div id="personal_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Personal_info</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="personalclose" data-close-window="personal_window" src="./files/x-small.svg">
+      </div> 
+      
+      <p>
+        Hello! My name is Mando328, I live in Poland and I am studing CS an physics in middle school.
+        In physics I really like quantum mechanics and astronomy, I even once visited CERN! On this site You will get to know my projects,
+        and I hope that it will be in a fun and intresting way. Have fun here!
+      </p>
+      <div class="gallery-container">
+        <div class="thumbnails"></div>
+          <div class="slides">
+            <div><img class="imgcontained" src="files/cern.webp"></div>
+            <div><img class="imgcontained" src="files/Hubble_LMC_L95_3F_flat_FINAL.jpg"></div>
+            <div><img class="imgcontained" src="files/Hubble_NGC4654_potm2607a.jpg"></div>
+      </div>
+          </div>
+      </div>
 
-
+    <div id="music_window" class="window">
+      <div id="music_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Music!</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="musicclose" data-close-window="music_window" src="./files/x-small.svg">
+      </div> 
+     
 
 
     <script src="script.js"></script>
