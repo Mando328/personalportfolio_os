@@ -66,9 +66,39 @@ var welcomeScreenOpen = document.querySelector("#welcomeopen")
 var personal_window = document.querySelector("#personal_window")
 var personalScreenClose = document.querySelector("#personalclose")
 var personalScreenOpen = document.querySelector("#personalopen")
-
+const input = document.getElementById('note-input');
+const btn = document.getElementById('add-btn');
+const list = document.getElementById("notes_list");
 var selectedIcon = undefined
 var zIndexCounter = 10
+
+let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+function render() {
+
+list.innerHTML = '';
+notes.forEach((note, index) => {
+  const li = document.createElement("li");
+  li.textContent = note;
+  li.innerHTML += `<button onclick="deleteNote(${index})">X</button>`;
+  list.append(li);
+});
+localStorage.setItem("notes", JSON.stringify(notes));
+
+}
+
+btn.addEventListener('click', () => {
+  if (input.value.trim() !== "") {
+    notes.push(input.value);
+    input.value = '';
+    render();
+  }
+});
+
+function deleteNote(index) {
+  notes.splice(index, 1);
+  render();
+}
 
 function bringToFront(element)
 {
@@ -188,10 +218,12 @@ document.addEventListener("click", function(event) {
   closeWindow(targetWindow);
 });
 
+render()
 dragElement(document.getElementById("welcome_window"));
 dragElement(document.getElementById("personal_window"));
-dragElement(document.getElementById("music_window"));
+dragElement(document.getElementById("notes_window"));
 setInterval(updateTime, 1000)
+
 
 
 

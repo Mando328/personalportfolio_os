@@ -79,10 +79,10 @@
   overflow: hidden;
 }
 
-#music_window
+#notes_window
 {
-  height: 100px;
-  width: 100px;
+  height: 500px;
+  width: fit-content;
   background-color: #9a5252;
   top: 50%;
   left: 50%;
