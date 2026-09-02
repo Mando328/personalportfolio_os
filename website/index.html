@@ -18,7 +18,7 @@
     <div id="desktop_apps">
 
     <img class="icon" id="personalopen" data-window="personal_window" src="./files/satelitte.png">
-    <img class="icon" id="musicopen" data-window="music_window" src="./files/scandisk-0-removebg-preview.png">
+    <img class="icon" id="notesopen" data-window="notes_window" src="./files/notes.png">
 
     </div>
     
@@ -54,10 +54,16 @@
           </div>
       </div>
 
-    <div id="music_window" class="window">
-      <div id="music_windowheader" class="windowheader">
-        <p style="font-size: 10px; margin: 0;">Music!</p>
-        <img style="width: 14px; height: 14px; cursor: pointer;" id="musicclose" data-close-window="music_window" src="./files/x-small.svg">
+    <div id="notes_window" class="window">
+      <div id="notes_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Notepad</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="notesclose" data-close-window="notes_window" src="./files/x-small.svg">
+      </div>
+      <input type="text" id="note-input" placeholder="Add a note...">
+      <button id="add-btn">Add Note</button>
+      <ul id="notes_list">
+
+      </ul>
       </div> 
      
 
