@@ -23,3 +23,4 @@ Features I plan to add:
 - Projects gallery
 - Maybe themes?
 
+AI used for debbuging CSS oddities and fixing my JS syntax
