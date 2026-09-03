@@ -7,8 +7,6 @@ function updateTime() {
 // copied from WIX
 // Make the DIV element draggable:
 
-
-// Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
   // Step 2: Set up variables to keep track of the element's position.
   var initialX = 0;
@@ -72,13 +70,44 @@ var discordScreenOpen = document.querySelector("#discordopen")
 var project_window = document.querySelector("#project_window")
 var projectScreenClose = document.querySelector("#projectclose")
 var projectScreenOpen = document.querySelector("#projectopen")
+var space_window = document.querySelector("#space_window")
+var spaceScreenClose = document.querySelector("#spaceclose")
+var spaceScreenOpen = document.querySelector("#spaceopen")
 const input = document.getElementById('note-input');
 const btn = document.getElementById('add-btn');
 const list = document.getElementById("notes_list");
+var desktopIcons = document.querySelectorAll(".icon");
+var allWindows = document.querySelectorAll(".window, #welcome_window");
 var selectedIcon = undefined
 var zIndexCounter = 10
-
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+function getnasa() {
+
+fetch("https://api.nasa.gov/planetary/apod?api_key=JlKIj4qbqmhJXDqdA4VAnVhRA8I0mNWyk098bhgt")
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`NASA API request failed: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => {
+    document.getElementById("apod_title").textContent = data.title;
+    document.getElementById("apod_desc").textContent = data.explanation;
+
+    if (data.media_type === "image") {
+      document.getElementById("apod_image").src = data.url;
+    } else {
+      document.getElementById("apod_image").alt = "Today's NASA picture is a video.";
+    }
+  })
+  .catch(err => {
+    document.getElementById("apod_desc").textContent = "Error loading APOD";
+    console.error(err);
+  });
+
+
+}
 
 function render() {
 
@@ -167,7 +196,6 @@ function toggleIconSelection(icon) {
 }
 
 
-
 welcomeScreenClose.addEventListener("click", function() {
   var icon = document.querySelector('.icon[data-window="welcome_window"]');
   if (icon) {
@@ -183,7 +211,6 @@ welcomeScreenOpen.addEventListener("click", function() {
   }
   openWindow(welcome_window);
 });
-
 personalScreenClose.addEventListener("click", function() {
   deselectIcon(personalScreenOpen);
   closeWindow(personal_window);
@@ -203,7 +230,12 @@ discordScreenOpen.addEventListener("click", function(){
   openWindow(discord_window);
 });
 
-var desktopIcons = document.querySelectorAll(".icon");
+spaceScreenClose.addEventListener("click", function() {
+  deselectIcon(spaceScreenOpen);
+  closeWindow(space_window);
+});
+
+
 desktopIcons.forEach(function(icon) {
   icon.addEventListener("click", function() {
     if (icon.dataset.window) {
@@ -215,7 +247,7 @@ desktopIcons.forEach(function(icon) {
   });
 });
 
-var allWindows = document.querySelectorAll(".window, #welcome_window");
+
 allWindows.forEach(function(windowElement) {
   windowElement.addEventListener("mousedown", function() {
     bringToFront(windowElement);
@@ -238,18 +270,20 @@ document.addEventListener("click", function(event) {
   closeWindow(targetWindow);
 });
 
-render()
+render();
+getnasa();
 dragElement(document.getElementById("welcome_window"));
 dragElement(document.getElementById("personal_window"));
 dragElement(document.getElementById("notes_window"));
 dragElement(document.getElementById("discord_window"));
 dragElement(document.getElementById("project_window"));
+dragElement(document.getElementById("space_window"));
 setInterval(updateTime, 1000)
 
 
 
 
-//code copied from 30s of code
+//code copied from 30s of code, it handles the gallery in my projects
 const slideGallery = document.querySelector('.slides');
 const thumbnailContainer = document.querySelector('.thumbnails');
 const previousArrow = document.querySelector('.gallery-arrow-prev');
