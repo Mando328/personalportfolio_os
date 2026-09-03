@@ -82,12 +82,63 @@
 #notes_window
 {
   padding-top: 35px;
-  height: 550px;
-  width: fit-content;
+  height: fit-content;
+  width: min(320px, calc(100vw - 32px));
   background-color: #9a5252;
   top: 50%;
   left: 50%;
   display: none;
+}
+
+#add-btn,
+#notes_window li button {
+  border: 2px outset #d8d8d8;
+  border-radius: 2px;
+  background: #c0c0c0;
+  color: #111;
+  font-family: "MS Sans Serif", "Segoe UI", Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#add-btn {
+  align-self: flex-start;
+  padding: 4px 10px;
+}
+
+#add-btn:active,
+#notes_window li button:active {
+  border-style: inset;
+}
+
+#note-input {
+  border: 2px inset #d8d8d8;
+  border-radius: 2px;
+  padding: 5px 6px;
+  background: #fff;
+  color: #111;
+  font-family: "MS Sans Serif", "Segoe UI", Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+#notes_list {
+  width: 100%;
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+
+#notes_window li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+#notes_window li button {
+  flex: 0 0 auto;
+  padding: 1px 5px;
 }
 
 body {
@@ -125,6 +176,16 @@ background-color: #9a5252;
   top: 50%;
   left: 50%;
   padding-top: 24px;
+}
+
+#discord_window
+{
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: fit-content;
+  width: 300px;
 }
 
 #p1
@@ -284,5 +345,29 @@ background-color: #9a5252;
 }
 
 .slides::-webkit-scrollbar {
+  display: none;
+}
+
+#socials
+{
+  display: flex;
+  align-content: center;
+  height: 34px;
+  justify-content: center;
+}
+
+#socials img
+{
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 16px;
+
+}
+
+#project_window
+{
+  top: 50%;
+  left: 50%;
   display: none;
 }

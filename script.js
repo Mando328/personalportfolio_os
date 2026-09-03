@@ -66,6 +66,9 @@ var welcomeScreenOpen = document.querySelector("#welcomeopen")
 var personal_window = document.querySelector("#personal_window")
 var personalScreenClose = document.querySelector("#personalclose")
 var personalScreenOpen = document.querySelector("#personalopen")
+var discord_window = document.querySelector("#discord_window")
+var discordScreenClose = document.querySelector("#discordclose")
+var discordScreenOpen = document.querySelector("#discordopen")
 const input = document.getElementById('note-input');
 const btn = document.getElementById('add-btn');
 const list = document.getElementById("notes_list");
@@ -183,6 +186,14 @@ personalScreenClose.addEventListener("click", function() {
   closeWindow(personal_window);
 });
 
+discordScreenClose.addEventListener("click", function() {
+  closeWindow(discord_window);
+});
+
+discordScreenOpen.addEventListener("click", function(){
+  openWindow(discord_window);
+});
+
 var desktopIcons = document.querySelectorAll(".icon");
 desktopIcons.forEach(function(icon) {
   icon.addEventListener("click", function() {
@@ -222,6 +233,8 @@ render()
 dragElement(document.getElementById("welcome_window"));
 dragElement(document.getElementById("personal_window"));
 dragElement(document.getElementById("notes_window"));
+dragElement(document.getElementById("discord_window"));
+dragElement(document.getElementById("project_window"));
 setInterval(updateTime, 1000)
 
 
@@ -229,34 +242,34 @@ setInterval(updateTime, 1000)
 
 //code copied from 30s of code
 const slideGallery = document.querySelector('.slides');
-const slides = slideGallery.querySelectorAll('div');
 const thumbnailContainer = document.querySelector('.thumbnails');
-const slideCount = slides.length;
 const slideWidth = 540;
 
-const highlightThumbnail = () => {
-  thumbnailContainer
-    .querySelectorAll('div.highlighted')
-    .forEach(el => el.classList.remove('highlighted'));
-  const index = Math.floor(slideGallery.scrollLeft / slideWidth);
-  thumbnailContainer
-    .querySelector(`div[data-id="${index}"]`)
-    .classList.add('highlighted');
-};
+if (slideGallery && thumbnailContainer) {
+  const slides = slideGallery.querySelectorAll('div');
 
-const scrollToElement = el => {
-  const index = parseInt(el.dataset.id, 10);
-  slideGallery.scrollTo(index * slideWidth, 0);
-};
+  const highlightThumbnail = () => {
+    thumbnailContainer
+      .querySelectorAll('div.highlighted')
+      .forEach(el => el.classList.remove('highlighted'));
+    const index = Math.floor(slideGallery.scrollLeft / slideWidth);
+    const activeThumbnail = thumbnailContainer.querySelector(`div[data-id="${index}"]`);
+    if (activeThumbnail) activeThumbnail.classList.add('highlighted');
+  };
 
-thumbnailContainer.innerHTML += [...slides]
-  .map((slide, i) => `<div data-id="${i}"></div>`)
-  .join('');
+  const scrollToElement = el => {
+    const index = parseInt(el.dataset.id, 10);
+    slideGallery.scrollTo(index * slideWidth, 0);
+  };
 
-thumbnailContainer.querySelectorAll('div').forEach(el => {
-  el.addEventListener('click', () => scrollToElement(el));
-});
+  thumbnailContainer.innerHTML += [...slides]
+    .map((slide, i) => `<div data-id="${i}"></div>`)
+    .join('');
 
-slideGallery.addEventListener('scroll', e => highlightThumbnail());
+  thumbnailContainer.querySelectorAll('div').forEach(el => {
+    el.addEventListener('click', () => scrollToElement(el));
+  });
 
-highlightThumbnail();
+  slideGallery.addEventListener('scroll', highlightThumbnail);
+  highlightThumbnail();
+}

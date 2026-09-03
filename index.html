@@ -19,6 +19,7 @@
 
     <img class="icon" id="personalopen" data-window="personal_window" src="./files/satelitte.png">
     <img class="icon" id="notesopen" data-window="notes_window" src="./files/notes.png">
+    <img class="icon" id="projectopen" data-window="projects_window" src="./files/certificates.png">
 
     </div>
     
@@ -41,9 +42,19 @@
       
       <p>
         Hello! My name is Mando328, I live in Poland and I am studing CS an physics in middle school.
-        In physics I really like quantum mechanics and astronomy, I even once visited CERN! On this site You will get to know my projects,
-        and I hope that it will be in a fun and intresting way. Have fun here!
+        In physics I really like quantum mechanics and astronomy, I even once visited CERN!
+        Here you can find me:
       </p>
+      <div id="socials">
+        <a href="https://github.com/Mando328" target="_blank">
+      <img src="./files/github.svg"  width="48" height="48" alt="Github" /> </a>
+      <img src="./files/discord.png" width="42" height="48" alt="Discord" style="cursor: pointer" id="discordopen" data-window="discord_window">
+      <a href="" target="_blank">
+      <img src="./files/reddit_pixel_logo_icon_181927.svg" width="42px" height="48px" alt="Reddit">
+      </a>
+
+      </div>
+      <!--
       <div class="gallery-container">
         <div class="thumbnails"></div>
           <div class="slides">
@@ -53,6 +64,8 @@
       </div>
           </div>
       </div>
+    -->
+    </div>
 
     <div id="notes_window" class="window">
       <div id="notes_windowheader" class="windowheader">
@@ -62,10 +75,25 @@
       <input type="text" id="note-input" placeholder="Add a note...">
       <button id="add-btn">Add Note</button>
       <ul id="notes_list">
-
       </ul>
       </div> 
-     
+
+      <div id="discord_window" class="window">
+      <div id="discord_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Discord</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="discordclose" data-close-window="discord_window" src="./files/x-small.svg">
+      </div>
+      <p>My discord username is mando328, just search it and you can contact me! (there is sadly no neat way to link DC accounts :<)</p>
+      </div>
+
+      <div id="project_window" class="window">
+      <div id="project_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">My projects!</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="projectsclose" data-close-window="project_window" src="./files/x-small.svg">
+      </div>
+      <p>WIP</p>
+      </div>
+    
 
 
     <script src="script.js"></script>
