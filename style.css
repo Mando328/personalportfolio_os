@@ -71,12 +71,15 @@
 #desktop_apps
 {
   padding-top: 64px;
-  height: fit-content;
-  width: 110px;
+  width: 200px;
+  height: calc(100vh - 64px);
   position: absolute;
   top: 1%;
   left: 0.4%;
-  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0;
 }
 
 #notes_window
@@ -85,7 +88,7 @@
   height: fit-content;
   width: min(320px, calc(100vw - 32px));
   background-color: #9a5252;
-  top: 50%;
+  top: 49%;
   left: 50%;
   display: none;
 }
@@ -174,7 +177,7 @@ background-color: #9a5252;
   width: min(520px, calc(100vw - 80px));
   max-height: 70vh;
   background-color: #9a5252;
-  top: 50%;
+  top: 54%;
   left: 50%;
   padding-top: 24px;
 }
@@ -183,10 +186,21 @@ background-color: #9a5252;
 {
   display: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 49%;
+  left: 53%;
   height: fit-content;
   width: 300px;
+}
+
+#space_window
+{
+  top: 52%;
+  left: 50%;
+  height: 600px;
+  width: 800px;
+  display: none;
+  align-items: center;
+
 }
 
 #p1
@@ -396,7 +410,7 @@ background-color: #9a5252;
 
 #project_window
 {
-  top: 50%;
+  top: 51%;
   left: 50%;
   display: none;
   height: fit-content;
