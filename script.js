@@ -1,7 +1,7 @@
 function updateTime() {
   var currentTime = new Date().toLocaleString();
   var timeText = document.querySelector("#time");
-  timeText.innerHTML = currentTime;
+  if (timeText) timeText.textContent = currentTime;
 }
 
 // copied from WIX
@@ -84,7 +84,14 @@ let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
 function getnasa() {
 
-fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+  var apodDescription = document.getElementById("apod_desc");
+
+  if (typeof NASA_API_KEY === "undefined") {
+    apodDescription.textContent = "NASA API key is not configured.";
+    return;
+  }
+
+fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
   .then(res => {
     if (!res.ok) {
       throw new Error(`NASA API request failed: ${res.status}`);
@@ -278,6 +285,7 @@ dragElement(document.getElementById("notes_window"));
 dragElement(document.getElementById("discord_window"));
 dragElement(document.getElementById("project_window"));
 dragElement(document.getElementById("space_window"));
+updateTime();
 setInterval(updateTime, 1000)
 
 
