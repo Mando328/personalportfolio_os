@@ -170,6 +170,7 @@ background-color: #9a5252;
 #personal_window
 {
   height: fit-content;
+  display: none;
   width: min(520px, calc(100vw - 80px));
   max-height: 70vh;
   background-color: #9a5252;
@@ -290,6 +291,7 @@ background-color: #9a5252;
   display: flex;
   justify-content: center;
   width: 100%;
+  padding: 10px;
 }
 
 .thumbnails {
@@ -310,6 +312,33 @@ background-color: #9a5252;
 
 .thumbnails div.highlighted {
   background-color: #777;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 22px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #777;
+  border-radius: 3px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.gallery-arrow:hover {
+  background: #fff;
+}
+
+.gallery-arrow-prev {
+  left: 12px;
+}
+
+.gallery-arrow-next {
+  right: 12px;
 }
 
 .slides {
@@ -370,4 +399,6 @@ background-color: #9a5252;
   top: 50%;
   left: 50%;
   display: none;
+  height: fit-content;
+  width: 348px;
 }
