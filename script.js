@@ -69,6 +69,9 @@ var personalScreenOpen = document.querySelector("#personalopen")
 var discord_window = document.querySelector("#discord_window")
 var discordScreenClose = document.querySelector("#discordclose")
 var discordScreenOpen = document.querySelector("#discordopen")
+var project_window = document.querySelector("#project_window")
+var projectScreenClose = document.querySelector("#projectclose")
+var projectScreenOpen = document.querySelector("#projectopen")
 const input = document.getElementById('note-input');
 const btn = document.getElementById('add-btn');
 const list = document.getElementById("notes_list");
@@ -163,7 +166,7 @@ function toggleIconSelection(icon) {
   syncWindowWithIcon(icon, true);
 }
 
-closeWindow(personal_window);
+
 
 welcomeScreenClose.addEventListener("click", function() {
   var icon = document.querySelector('.icon[data-window="welcome_window"]');
@@ -184,7 +187,13 @@ welcomeScreenOpen.addEventListener("click", function() {
 personalScreenClose.addEventListener("click", function() {
   deselectIcon(personalScreenOpen);
   closeWindow(personal_window);
+  closeWindow(discord_window);
 });
+
+projectScreenClose.addEventListener("click", function() {
+  deselectIcon(projectScreenOpen);
+  closeWindow(project_window);
+} );
 
 discordScreenClose.addEventListener("click", function() {
   closeWindow(discord_window);
@@ -243,7 +252,8 @@ setInterval(updateTime, 1000)
 //code copied from 30s of code
 const slideGallery = document.querySelector('.slides');
 const thumbnailContainer = document.querySelector('.thumbnails');
-const slideWidth = 540;
+const previousArrow = document.querySelector('.gallery-arrow-prev');
+const nextArrow = document.querySelector('.gallery-arrow-next');
 
 if (slideGallery && thumbnailContainer) {
   const slides = slideGallery.querySelectorAll('div');
@@ -252,14 +262,14 @@ if (slideGallery && thumbnailContainer) {
     thumbnailContainer
       .querySelectorAll('div.highlighted')
       .forEach(el => el.classList.remove('highlighted'));
-    const index = Math.floor(slideGallery.scrollLeft / slideWidth);
+    const index = Math.round(slideGallery.scrollLeft / slideGallery.clientWidth);
     const activeThumbnail = thumbnailContainer.querySelector(`div[data-id="${index}"]`);
     if (activeThumbnail) activeThumbnail.classList.add('highlighted');
   };
 
   const scrollToElement = el => {
     const index = parseInt(el.dataset.id, 10);
-    slideGallery.scrollTo(index * slideWidth, 0);
+    slideGallery.scrollTo(index * slideGallery.clientWidth, 0);
   };
 
   thumbnailContainer.innerHTML += [...slides]
@@ -268,6 +278,16 @@ if (slideGallery && thumbnailContainer) {
 
   thumbnailContainer.querySelectorAll('div').forEach(el => {
     el.addEventListener('click', () => scrollToElement(el));
+  });
+
+  previousArrow.addEventListener('click', () => {
+    const currentIndex = Math.round(slideGallery.scrollLeft / slideGallery.clientWidth);
+    scrollToElement({ dataset: { id: Math.max(currentIndex - 1, 0) } });
+  });
+
+  nextArrow.addEventListener('click', () => {
+    const currentIndex = Math.round(slideGallery.scrollLeft / slideGallery.clientWidth);
+    scrollToElement({ dataset: { id: Math.min(currentIndex + 1, slides.length - 1) } });
   });
 
   slideGallery.addEventListener('scroll', highlightThumbnail);

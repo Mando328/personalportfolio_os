@@ -19,7 +19,7 @@
 
     <img class="icon" id="personalopen" data-window="personal_window" src="./files/satelitte.png">
     <img class="icon" id="notesopen" data-window="notes_window" src="./files/notes.png">
-    <img class="icon" id="projectopen" data-window="projects_window" src="./files/certificates.png">
+    <img class="icon" id="projectopen" data-window="project_window" src="./files/certificates.png">
 
     </div>
     
@@ -55,15 +55,7 @@
 
       </div>
       <!--
-      <div class="gallery-container">
-        <div class="thumbnails"></div>
-          <div class="slides">
-            <div><img class="imgcontained" src="files/cern.webp"></div>
-            <div><img class="imgcontained" src="files/Hubble_LMC_L95_3F_flat_FINAL.jpg"></div>
-            <div><img class="imgcontained" src="files/Hubble_NGC4654_potm2607a.jpg"></div>
-      </div>
-          </div>
-      </div>
+      
     -->
     </div>
 
@@ -87,11 +79,34 @@
       </div>
 
       <div id="project_window" class="window">
-      <div id="project_windowheader" class="windowheader">
+      <div id="project_windowheader" class="windowheader" style="margin-bottom: 10px;">
         <p style="font-size: 10px; margin: 0;">My projects!</p>
-        <img style="width: 14px; height: 14px; cursor: pointer;" id="projectsclose" data-close-window="project_window" src="./files/x-small.svg">
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="projectclose" data-close-window="project_window" src="./files/x-small.svg">
       </div>
-      <p>WIP</p>
+      <p style="font-size: 5; font-weight: 100; padding-top: 20px;">Tip: Use arrows to scroll and click to get to the Github!</p>
+      <div class="gallery-container">
+        <div class="thumbnails"></div>
+        <button class="gallery-arrow gallery-arrow-prev" type="button" aria-label="Previous picture">&lt;</button>
+          <div class="slides">
+            <div>
+              <a href="https://github.com/Mando328/SPOTDISP" target="_blank">
+              <img class="imgcontained" src="https://private-user-images.githubusercontent.com/196460094/578106076-1522a5fb-6815-45cc-b39d-9e568329ba40.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODg0NTc3NDQsIm5iZiI6MTc4ODQ1NzQ0NCwicGF0aCI6Ii8xOTY0NjAwOTQvNTc4MTA2MDc2LTE1MjJhNWZiLTY4MTUtNDVjYy1iMzlkLTllNTY4MzI5YmE0MC5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwOTAzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDkwM1QxNzQ0MDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01ZGRiNTA3MWZiN2IzMTU4YzM4Yzg5NWE5MjgzZTUzMWUzOTM0Mjk4M2YzZmE5Mjg0NTM1MWE1NTQ2NDIyMjFlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.OpOnPTx4QhizwH4nAbNP7P84GLjUUwUjAKaepJKBoMk">
+              </a>
+            </div>
+            <div>
+              <a href="https://github.com/Mando328/mi-pad" target="_blank">
+              <img class="imgcontained" src="https://private-user-images.githubusercontent.com/196460094/534466157-ba383762-d8d0-408b-8314-a2645eecb79e.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODg0NTc4MzQsIm5iZiI6MTc4ODQ1NzUzNCwicGF0aCI6Ii8xOTY0NjAwOTQvNTM0NDY2MTU3LWJhMzgzNzYyLWQ4ZDAtNDA4Yi04MzE0LWEyNjQ1ZWVjYjc5ZS5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwOTAzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDkwM1QxNzQ1MzRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xNTEzZmYyMmYxNDMxYmJiMTFiZDZmNjUxYThiM2I4NmJjN2EzZjg5M2Q5MmQ1MTIwNmE0NjEzMWE4NTdiMDVkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.90UbrR4NzOhr0Y3zVUTK5vloTGoUj9GRELCHShHX8ro">
+              </a>
+            </div>
+            <div>
+              <a href="https://github.com/Mando328/text_crawler" target="_blank">
+              <img class="imgcontained" src="files/dungeon crawler.png"> 
+              </a>
+            </div>
+      </div>
+          <button class="gallery-arrow gallery-arrow-next" type="button" aria-label="Next picture">&gt;</button>
+          </div>
+      </div>
       </div>
     
 
