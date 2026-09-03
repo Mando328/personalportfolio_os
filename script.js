@@ -84,7 +84,7 @@ let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
 function getnasa() {
 
-fetch("https://api.nasa.gov/planetary/apod?api_key=JlKIj4qbqmhJXDqdA4VAnVhRA8I0mNWyk098bhgt")
+fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
   .then(res => {
     if (!res.ok) {
       throw new Error(`NASA API request failed: ${res.status}`);
