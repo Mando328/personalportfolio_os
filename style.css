@@ -196,11 +196,87 @@ background-color: #9a5252;
 {
   top: 52%;
   left: 50%;
-  height: 600px;
-  width: 800px;
+  height: 500px;
+  width: 500px;
   display: none;
   align-items: center;
+  overflow: hidden;
+  padding-top: 24px;
 
+}
+
+#certificates_window
+{
+  overflow: hidden;
+  padding-top: 24px;
+}
+
+.space-content
+{
+  width: calc(100% + 16px);
+  min-height: 0;
+  overflow-y: auto;
+  margin-right: -16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  scrollbar-width: thin;
+  scrollbar-color: white #6f3838;
+}
+
+.certificates-content
+{
+  width: calc(100% + 16px);
+  min-height: 0;
+  overflow-y: auto;
+  margin-right: -16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  scrollbar-width: thin;
+  scrollbar-color: white #6f3838;
+}
+
+.certificates-content ul
+{
+  width: 100%;
+  margin: 0;
+  padding-left: 20px;
+  text-align: left;
+}
+
+.space-content::-webkit-scrollbar,
+.certificates-content::-webkit-scrollbar
+{
+  width: 10px;
+}
+
+.space-content::-webkit-scrollbar-track,
+.certificates-content::-webkit-scrollbar-track
+{
+  background: #6f3838;
+  border-left: 1px solid white;
+}
+
+.space-content::-webkit-scrollbar-thumb,
+.certificates-content::-webkit-scrollbar-thumb
+{
+  background: white;
+  border: 2px solid #6f3838;
+  border-radius: 2px;
+
+}
+
+#certificates_window
+{
+  height: 200px;
+  width: 200px;
+  display: none;
+  left: 50%;
+  top: 50%;
+  align-content: flex-start;
 }
 
 #p1

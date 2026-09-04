@@ -285,6 +285,7 @@ dragElement(document.getElementById("notes_window"));
 dragElement(document.getElementById("discord_window"));
 dragElement(document.getElementById("project_window"));
 dragElement(document.getElementById("space_window"));
+dragElement(document.getElementById("certificates_window"))
 updateTime();
 setInterval(updateTime, 1000)
 

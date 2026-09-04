@@ -21,6 +21,7 @@
     <img class="icon" id="notesopen" data-window="notes_window" src="./files/notes.png">
     <img class="icon" id="projectopen" data-window="project_window" src="./files/certificates.png">
     <img class="icon" id="spaceopen" data-window="space_window" src="./files/earth.png">
+    <img class="icon" id="certificatesopen" data-window="certificates_window" src="./files/certificate-0.png">
     </div>
     
     <div id="welcome_window">
@@ -111,10 +112,31 @@
         <p style="font-size: 10px; margin: 0;">Space</p>
         <img style="width: 14px; height: 14px; cursor: pointer;" id="spaceclose" data-close-window="space_window" src="./files/x-small.svg">
       </div>
-      <p id="apod_title"></p>
-      <img id="apod_image" style="height: 400px; width: 400px;" alt="Astronomy Picture Of the Day" >
-      <p id="apod_desc"></p>
+      <div class="space-content">
+        <p id="apod_title"></p>
+        <img id="apod_image" style="height: 400px; width: 400px;" alt="Astronomy Picture Of the Day" >
+        <p id="apod_desc"></p>
+      </div>
 
+    </div>
+
+    <div id="certificates_window" class="window">
+      <div id="certificates_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">My certificates and achivments</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="certificatesclose" data-close-window="certificates_window" src="./files/x-small.svg">
+      </div>
+      <div class="certificates-content">
+        <p>Here you can take a look at all of my certificates!</p>
+        <ul>
+          <p>Certificates:</p>
+          <li>Digital Skills by Google</li>
+          <li>Project Management Principles by PMI</li>
+          <li>Teamwork achivment score</li>
+          <p>Achivments:</p>
+          <li>Silver Wolf in Zwolnieni z Teori</li>
+        </ul>
+        <p style="font-size: 4; font-weight: lighter;">Contact me if you need proof!</p>
+      </div>
     </div>
 
 
