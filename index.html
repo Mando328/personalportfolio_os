@@ -15,8 +15,9 @@
       <p style="margin-left: 16px; cursor: pointer "id="welcomeopen";>MANDO_OS</p>
       <p id='time'style="margin-right: 16px;">TIME LOADING...</p>
     </div>
-    <div id="desktop_apps">
 
+    <div id="desktop_apps">
+    <img class="icon" id="particlesopen" data-window="particles_window" src="./files/particle.png">
     <img class="icon" id="personalopen" data-window="personal_window" src="./files/satelitte.png">
     <img class="icon" id="notesopen" data-window="notes_window" src="./files/notes.png">
     <img class="icon" id="projectopen" data-window="project_window" src="./files/certificates.png">
@@ -139,7 +140,19 @@
       </div>
     </div>
 
-
+    <div id="particles_window" class="window">
+      <div id="particles_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Particles simulation</p>
+        <img style="width: 14px; height: 14px; cursor: pointer;" id="particlesclose" data-close-window="particles_window" src="./files/x-small.svg">
+      </div>
+        <h2 id="particleh2"></h2>
+        <p id="fractal-description">Julia set: move to choose C, then click to zoom into the set.</p>
+        <div id="fractal-controls">
+          <button id="fractal-reset" type="button">Reset</button>
+        </div>
+        <canvas id="canvas"></canvas>
+      </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.6.0/math.min.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
 
