@@ -127,6 +127,8 @@ function move(event) {
   mouseX = ((event.clientX - canvasRect.left) / canvasRect.width) * width
   mouseY = ((event.clientY - canvasRect.top) / canvasRect.height) * height
 
+  if (clicked) return
+
   constant = pixelToPoint(mouseX, mouseY)
 
   constant.re = math.round(constant.re * 100) / 100
