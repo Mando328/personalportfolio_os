@@ -343,16 +343,7 @@ welcomeScreenOpen.addEventListener("click", function() {
   }
   openWindow(welcome_window);
 });
-personalScreenClose.addEventListener("click", function() {
-  deselectIcon(personalScreenOpen);
-  closeWindow(personal_window);
-  closeWindow(discord_window);
-});
 
-projectScreenClose.addEventListener("click", function() {
-  deselectIcon(projectScreenOpen);
-  closeWindow(project_window);
-} );
 
 discordScreenClose.addEventListener("click", function() {
   closeWindow(discord_window);
@@ -362,10 +353,6 @@ discordScreenOpen.addEventListener("click", function(){
   openWindow(discord_window);
 });
 
-particlesScreenClose.addEventListener("click" ,function() {
-  deselectIcon(particlesScreenOpen);
-  closeWindow(particles_window);
-});
 
 desktopIcons.forEach(function(icon) {
   icon.addEventListener("click", function() {
