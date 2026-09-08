@@ -1,12 +1,16 @@
-Welcome to my portfolio website!
+Welcome to my portfolio website! <br>
+Still WIP <br>
 I am trying to achive clam and retro vibe with this project, and I think it looks good, I don't think it works on mobile tho.
-First finished bulid is ready! I am getting it reviewed by Hackclub Stardance rn.
+First finished bulid is ready!.
 <br>
 Main features:
 - Welcome window
 - Working clock
 - Notes app with memory
 - Personal window
+- Call to NASA API
+- Julia set fractal generator
+- Project gallery
 <br>
 
 
@@ -20,7 +24,6 @@ I am pretty happy with what we have for now, but I am not stopping here!
 Features I plan to add:
 - Music app
 - Some game?
-- Projects gallery
 - Maybe themes?
 
 AI used for debbuging CSS oddities and fixing my JS syntax
