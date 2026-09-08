@@ -1,21 +1,9 @@
 var welcome_window = document.querySelector("#welcome_window")
 var welcomeScreenClose = document.querySelector("#welcomeclose")
 var welcomeScreenOpen = document.querySelector("#welcomeopen")
-var personal_window = document.querySelector("#personal_window")
-var personalScreenClose = document.querySelector("#personalclose")
-var personalScreenOpen = document.querySelector("#personalopen")
 var discord_window = document.querySelector("#discord_window")
 var discordScreenClose = document.querySelector("#discordclose")
 var discordScreenOpen = document.querySelector("#discordopen")
-var project_window = document.querySelector("#project_window")
-var projectScreenClose = document.querySelector("#projectclose")
-var projectScreenOpen = document.querySelector("#projectopen")
-var space_window = document.querySelector("#space_window")
-var spaceScreenClose = document.querySelector("#spaceclose")
-var spaceScreenOpen = document.querySelector("#spaceopen")
-var particles_window = document.querySelector("#particles_window")
-var particlesScreenClose = document.querySelector("#particlesclose")
-var particlesScreenOpen = document.querySelector("#particlesopen")
 const input = document.getElementById('note-input');
 const btn = document.getElementById('add-btn');
 const list = document.getElementById("notes_list");
@@ -324,6 +312,22 @@ function toggleIconSelection(icon) {
   syncWindowWithIcon(icon, true);
 }
 
+function InitializeWindow(window) {
+  screen = document.querySelector("#" + window + "_window")
+  close = document.querySelector("#" + window + "close")
+  open = document.querySelector("#" + window + "open")
+
+  close.addEventListener("click", function() {
+    deselectIcon(open);
+    closeWindow(screen);
+    if(window == "personal"){
+      closeWindow(discord_window);
+    }
+  });
+
+  dragElement(screen);
+};
+
 welcomeScreenClose.addEventListener("click", function() {
   var icon = document.querySelector('.icon[data-window="welcome_window"]');
   if (icon) {
@@ -356,11 +360,6 @@ discordScreenClose.addEventListener("click", function() {
 
 discordScreenOpen.addEventListener("click", function(){
   openWindow(discord_window);
-});
-
-spaceScreenClose.addEventListener("click", function() {
-  deselectIcon(spaceScreenOpen);
-  closeWindow(space_window);
 });
 
 particlesScreenClose.addEventListener("click" ,function() {
@@ -448,17 +447,16 @@ if (slideGallery && thumbnailContainer) {
 }
 
 // end of copied code
-
+InitializeWindow("space");
+InitializeWindow("personal");
+InitializeWindow("notes");
+InitializeWindow("project");
+InitializeWindow("certificates");
+InitializeWindow("particles");
 render();
 getnasa();
 dragElement(document.getElementById("welcome_window"));
-dragElement(document.getElementById("personal_window"));
-dragElement(document.getElementById("notes_window"));
 dragElement(document.getElementById("discord_window"));
-dragElement(document.getElementById("project_window"));
-dragElement(document.getElementById("space_window"));
-dragElement(document.getElementById("certificates_window"));
-dragElement(document.getElementById("particles_window"));
 updateTime();
 setInterval(updateTime, 1000)
 canvas.addEventListener('pointermove', move)
