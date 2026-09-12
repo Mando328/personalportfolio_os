@@ -368,19 +368,19 @@ function toggleIconSelection(icon) {
 }
 
 function InitializeWindow(window) {
-  screen = document.querySelector("#" + window + "_window")
-  close = document.querySelector("#" + window + "close")
-  open = document.querySelector("#" + window + "open")
+  const screenElement = document.querySelector("#" + window + "_window")
+  const closeButton = document.querySelector("#" + window + "close")
+  const openIcon = document.querySelector("#" + window + "open")
 
-  close.addEventListener("click", function() {
-    deselectIcon(open);
-    closeWindow(screen);
+  closeButton.addEventListener("click", function() {
+    deselectIcon(openIcon);
+    closeWindow(screenElement);
     if(window == "personal"){
       closeWindow(discord_window);
     }
   });
 
-  dragElement(screen);
+  dragElement(screenElement);
 };
 
 welcomeScreenClose.addEventListener("click", function() {
