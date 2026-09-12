@@ -23,6 +23,7 @@
     <img class="icon" id="projectopen" data-window="project_window" src="./files/certificates.png">
     <img class="icon" id="spaceopen" data-window="space_window" src="./files/earth.png">
     <img class="icon" id="certificatesopen" data-window="certificates_window" src="./files/certificate-0.png">
+    <img class="icon" id="musicopen" data-window="music_window" src="./files/cd_audio_cd_a-4.png">
     </div>
     
     <div id="welcome_window">
@@ -152,6 +153,44 @@
         </div>
         <canvas id="canvas"></canvas>
       </div>
+
+    <div id="music_window" class="window">
+      <div id="music_windowheader" class="windowheader">
+        <p style="font-size: 10px; margin: 0;">Music</p>
+        <button id="mini-player-toggle" type="button" aria-label="Play in mini player" title="Play in mini player">↙</button>
+        <img src="./files/x-small.svg" style="width: 14px; height: 14px; cursor: pointer;" id="musicclose" data-close-window="music_window">
+      </div>
+    <div id="music-player">
+    <audio id="audio">
+      <source src="" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div class="album-art">
+      <img id="album-photo" src="" alt="Album cover">
+    </div>
+    <div id="track-name">Track Name</div>
+    <div id="time-display">
+      <span id="current-time">0:00</span> / <span id="total-duration">0:00</span>
+    </div>
+     <div id="track-progress">
+            <input type="range" id="track-slider" min="0" max="100" step="0.1" value="0">
+        </div>
+
+        <!-- Buttons -->
+      <div class="music-controls">
+            <button id="prev-button" aria-label="Previous track" title="Previous track">⏮</button>
+            <button id="play-pause" class="hover-border">&#9658</button>
+            <button id="next-button" aria-label="Next track" title="Next track">⏭</button>
+        </div>
+
+        <!-- Volume Slider -->
+      <div class="music-controls volume-controls">
+            <span>🔉</span>
+            <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+            <span>🔊</span>
+        </div>
+    </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.6.0/math.min.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>

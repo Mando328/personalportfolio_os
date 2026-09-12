@@ -26,6 +26,37 @@ var pan = math.complex(0, 0)
 var zoom = 1
 var initialConstant = { re: 0.28, im: 0.01 }
 var fractalResetButton = document.getElementById("fractal-reset")
+const audio = document.getElementById("audio");
+const playPauseButton = document.getElementById("play-pause");
+const prevButton = document.getElementById("prev-button");
+const nextButton = document.getElementById("next-button");
+const volumeControl = document.getElementById("volume");
+const trackSlider = document.getElementById("track-slider");
+const currentTimeDisplay = document.getElementById("current-time");
+const totalDurationDisplay = document.getElementById("total-duration");
+const ribbon = document.getElementById("ribbon");
+const trackNameDisplay = document.getElementById("track-name");
+const albumPhoto = document.getElementById("album-photo");
+const musicWindow = document.getElementById("music_window");
+const miniPlayerToggle = document.getElementById("mini-player-toggle");
+let isPlaying = false;
+let isSeeking = false;
+const savedMusicState = JSON.parse(localStorage.getItem("musicState") || "{}");
+let currentTrack = Number.isInteger(savedMusicState.currentTrack) ? savedMusicState.currentTrack : 0;
+let audioPosition = Number.isFinite(savedMusicState.audioPosition) ? savedMusicState.audioPosition : 0;
+
+ const trackList = [
+   "files/tunetank_vlog.mp3",
+   "files/isaiahmathew-dont panic.mp3",
+    // Add more tracks as needed
+  ];
+
+  // Array of Album Photos
+  const albumPhotos = [
+    "./files/tunetank.webp",
+    "./files/music-placeholder.svg",
+    // Add more corresponding Album Photos
+  ];
 
 
 //this fragment of code is responsible for the fractals,
@@ -132,6 +163,18 @@ fractalResetButton.addEventListener("click", resetFractals)
 
 
 //function from WIX
+function clampWindowToViewport(element) {
+  if (!element) return;
+
+  var halfWidth = element.offsetWidth / 2;
+  var halfHeight = element.offsetHeight / 2;
+  var currentTop = element.offsetTop;
+  var currentLeft = element.offsetLeft;
+
+  element.style.top = Math.max(halfHeight, Math.min(window.innerHeight - halfHeight, currentTop)) + "px";
+  element.style.left = Math.max(halfWidth, Math.min(window.innerWidth - halfWidth, currentLeft)) + "px";
+}
+
 function dragElement(element) {
   // Step 2: Set up variables to keep track of the element's position.
   var initialX = 0;
@@ -148,6 +191,7 @@ function dragElement(element) {
     e = e || window.event;
     if (e.target.closest("[data-close-window]")) return;
     e.preventDefault();
+    bringToFront(element);
     // Step 7: Get the pointer position at startup.
     initialX = e.clientX;
     initialY = e.clientY;
@@ -168,8 +212,11 @@ function dragElement(element) {
     initialX = e.clientX;
     initialY = e.clientY;
     // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
-    element.style.top = (element.offsetTop - currentY) + "px";
-    element.style.left = (element.offsetLeft - currentX) + "px";
+    var nextTop = element.offsetTop - currentY;
+    var nextLeft = element.offsetLeft - currentX;
+    element.style.top = nextTop + "px";
+    element.style.left = nextLeft + "px";
+    clampWindowToViewport(element);
   }
 
   // Step 12: Define the `stopDragging` function to stop tracking pointer movement.
@@ -261,6 +308,14 @@ function bringToFront(element)
 function closeWindow(element)
 {
     if (!element) return;
+    if (element === musicWindow) {
+      audioPosition = audio.currentTime;
+      audio.pause();
+      isPlaying = false;
+      playPauseButton.textContent = "►";
+      if (ribbon) ribbon.style.display = "none";
+      saveMusicState();
+    }
     element.style.display = "none"
 }
 
@@ -387,6 +442,205 @@ document.addEventListener("click", function(event) {
   closeWindow(targetWindow);
 });
 
+//code copied from medium
+
+
+
+  // Function to toggle between Play and Pause
+  function togglePlayPause() {
+    if (audio.paused) {
+      const sourceChanged = !audio.src || !audio.src.endsWith(trackList[currentTrack]);
+      if (sourceChanged) {
+        audio.src = trackList[currentTrack];
+        audio.load();
+      }
+      const savedPosition = audioPosition;
+      const startPlayback = () => {
+        if (savedPosition > 0) audio.currentTime = savedPosition;
+        audio.play()
+        .then(() => {
+          playPauseButton.textContent = "❚❚";
+          isPlaying = true;
+          updateTrackName(currentTrack);
+
+          if (ribbon) {
+            ribbon.style.display = "block";
+            ribbon.classList.add("active");
+          }
+        })
+        .catch((error) => {
+          console.error("Audio Playback Error: " + error.message);
+          isPlaying = false;
+          playPauseButton.textContent = "►";
+        });
+      };
+
+      if (audio.readyState >= 1) {
+        startPlayback();
+      } else {
+        audio.addEventListener("loadedmetadata", startPlayback, { once: true });
+      }
+    } else {
+      audioPosition = audio.currentTime; // Store the current audio position
+      audio.pause();
+      saveMusicState();
+      playPauseButton.textContent = "►";
+      if (ribbon) ribbon.style.display = "none";
+      isPlaying = false;
+    }
+  }
+
+  playPauseButton.addEventListener("click", togglePlayPause);
+
+  // Function to play the next track
+  nextButton.addEventListener("click", function () {
+    if (currentTrack < trackList.length - 1) {
+      currentTrack++;
+    } else {
+      currentTrack = 0;
+    }
+    audioPosition = 0;
+    playTrack(currentTrack);
+  });
+
+  // Function to play the previous track
+  prevButton.addEventListener("click", function () {
+    if (currentTrack > 0) {
+      currentTrack--;
+    } else {
+      currentTrack = trackList.length - 1;
+    }
+    audioPosition = 0;
+    playTrack(currentTrack);
+  });
+
+  // Function to play a specific track
+  function playTrack(trackIndex) {
+    audio.src = trackList[trackIndex];
+    audioPosition = 0;
+    audio.load();
+    audio.play().catch((error) => {
+      console.error("Audio Playback Error: " + error.message);
+      isPlaying = false;
+      playPauseButton.textContent = "►";
+    });
+    playPauseButton.textContent = "❚❚";
+    isPlaying = true;
+    updateTrackName(trackIndex); // Updating the track name
+    saveMusicState();
+  }
+
+  // Function to update the track name
+  function updateTrackName(trackIndex) {
+    const trackName = trackList[trackIndex];
+    const cleanedTrackName = trackName
+      .split("/")
+      .pop()
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/\b\w/g, character => character.toUpperCase());
+    trackNameDisplay.textContent = cleanedTrackName;
+    if (albumPhoto) {
+      albumPhoto.onerror = () => {
+        albumPhoto.onerror = null;
+        albumPhoto.src = "./files/music-placeholder.svg";
+      };
+      albumPhoto.src = albumPhotos[trackIndex] || "./files/music-placeholder.svg";
+    }
+  }
+
+  volumeControl.addEventListener("input", function () {
+    audio.volume = volumeControl.value;
+  });
+
+  miniPlayerToggle.addEventListener("click", function () {
+    const isMiniPlayer = musicWindow.classList.toggle("mini-player");
+    clampWindowToViewport(musicWindow);
+    miniPlayerToggle.textContent = isMiniPlayer ? "↗" : "↙";
+    miniPlayerToggle.setAttribute("aria-label", isMiniPlayer ? "Restore music player" : "Play in mini player");
+    miniPlayerToggle.title = isMiniPlayer ? "Restore music player" : "Play in mini player";
+  });
+
+  miniPlayerToggle.addEventListener("pointerdown", function (event) {
+    event.stopPropagation();
+  });
+
+  // Update the audio time displays
+  audio.addEventListener("timeupdate", function () {
+    audioPosition = audio.currentTime;
+    saveMusicState();
+    const currentTime = formatTime(audio.currentTime);
+    const totalDuration = formatTime(audio.duration);
+    currentTimeDisplay.textContent = currentTime;
+    totalDurationDisplay.textContent = totalDuration;
+
+    // Update the track slider as the audio plays
+    if (!isSeeking && Number.isFinite(audio.duration) && audio.duration > 0) {
+      const position = (audio.currentTime / audio.duration) * 100;
+      trackSlider.value = position;
+    }
+  });
+
+  audio.addEventListener("pause", function () {
+    audioPosition = audio.currentTime;
+    saveMusicState();
+    isPlaying = false;
+    playPauseButton.textContent = "►";
+  });
+
+  audio.addEventListener("play", function () {
+    isPlaying = true;
+    playPauseButton.textContent = "❚❚";
+  });
+
+  window.addEventListener("beforeunload", saveMusicState);
+
+  // Seek to a position when the user interacts with the track slider
+  trackSlider.addEventListener("pointerdown", function () {
+    isSeeking = true;
+  });
+
+  trackSlider.addEventListener("input", function () {
+    if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+    const newPosition = (trackSlider.value / 100) * audio.duration;
+    audio.currentTime = newPosition;
+    audioPosition = newPosition;
+    saveMusicState();
+  });
+
+  trackSlider.addEventListener("pointerup", function () {
+    isSeeking = false;
+  });
+
+  trackSlider.addEventListener("change", function () {
+    isSeeking = false;
+  });
+
+  // Handle track ending and play the next track
+  audio.addEventListener("ended", function () {
+    if (currentTrack < trackList.length - 1) {
+      currentTrack++;
+    } else {
+      currentTrack = 0;
+    }
+    audioPosition = 0;
+    playTrack(currentTrack);
+  });
+
+  function saveMusicState() {
+    localStorage.setItem("musicState", JSON.stringify({ currentTrack, audioPosition }));
+  }
+
+  updateTrackName(currentTrack);
+
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  }
+
 
 //code copied from 30s of code, it handles the gallery in my projects window
 const slideGallery = document.querySelector('.slides');
@@ -440,6 +694,7 @@ InitializeWindow("notes");
 InitializeWindow("project");
 InitializeWindow("certificates");
 InitializeWindow("particles");
+InitializeWindow("music");
 render();
 getnasa();
 dragElement(document.getElementById("welcome_window"));

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Music placeholder">
+  <rect width="400" height="400" fill="#515A47"/>
+  <circle cx="200" cy="200" r="112" fill="#9a5252" stroke="#fff" stroke-width="8"/>
+  <path d="M180 132v136a42 42 0 1 1-18-35V132h108v36H198v100" fill="#fff"/>
+  <circle cx="150" cy="278" r="28" fill="#fff"/>
+  <text x="200" y="365" fill="#fff" font-family="sans-serif" font-size="24" text-anchor="middle">NO COVER ART</text>
+</svg>
